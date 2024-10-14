@@ -76,19 +76,19 @@ curl -X POST http://localhost:11434/v1/completions ^
 
 ![image](https://github.com/user-attachments/assets/5c686d06-f31e-401e-98fa-9f10bfe378ce)
 
-We first invoke the ChatGTP component
+We first invoke the **ChatGTP** component
 
 ![image](https://github.com/user-attachments/assets/27e6fedb-7b44-4743-8f4b-e3575fef959b)
 
-We verify the component consuming the ChatGPT service
+We verify the component consuming the **ChatGPT** service
 
 ![image](https://github.com/user-attachments/assets/d8ca6469-e509-41ee-8878-fff5e0156b28)
 
-We first invoke the Ollama Phi3 component
+We first invoke the **Ollama Phi3** component
 
 ![image](https://github.com/user-attachments/assets/b74d8c66-56cc-4823-aac7-f661ac5cbc79)
 
-We verify the component consuming the Ollama Phi3 service
+We verify the component consuming the **Ollama Phi3** service
 
 ![image](https://github.com/user-attachments/assets/7aa77ecd-4033-4ab2-b2a5-fe25d1c44d0b)
 

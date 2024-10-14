@@ -1,5 +1,9 @@
 # How to integrate Microsoft Semantic Kernel (ChatGPT and Ollama) in a Blazor Web Application
 
+For more information about **Microsoft.SemanticKernel** navigate to this URL: 
+
+https://learn.microsoft.com/en-us/semantic-kernel/
+
 ## 1. Generate an OpenAI Key for ChatGPT
 
 https://platform.openai.com/api-keys

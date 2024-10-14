@@ -90,4 +90,5 @@ We first invoke the Ollama Phi3 component
 
 We verify the component consuming the Ollama Phi3 service
 
+![image](https://github.com/user-attachments/assets/7aa77ecd-4033-4ab2-b2a5-fe25d1c44d0b)
 

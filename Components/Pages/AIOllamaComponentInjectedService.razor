@@ -1,0 +1,34 @@
+﻿@page "/ServiceAIChatPhi3"
+@using BlazorAISample1.Services
+@inject OllamaService OllamaService  // Inject the OllamaService for making the API call
+
+<h3>Ask Phi-3 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskPhi3">Ask Phi-3</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskPhi3()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            return;
+        }
+
+        gptResponse = await OllamaService.GetResponseAsync(userPrompt);
+    }
+}

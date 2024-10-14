@@ -1,0 +1,36 @@
+﻿@page "/ServiceAIChatGPT"
+@using BlazorAISample1.Services
+@inject ChatGPTService GPTService
+@inject IJSRuntime JS
+
+<h3>Ask GPT-4 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskGPT4">Ask GPT-4</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskGPT4()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            gptResponse = "Please enter a valid prompt.";
+            return;
+        }
+
+        gptResponse = await GPTService.AskGPT4Async(userPrompt);
+    }
+}

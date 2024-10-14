@@ -1,0 +1,64 @@
+﻿@page "/AIChatGPT"
+@inject IJSRuntime JS
+
+<h3>Ask GPT-4 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskGPT4">Ask GPT-4</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskGPT4()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            return;
+        }
+
+        gptResponse = await InvokeGPT4Async(userPrompt);
+    }
+
+    private async Task<string> InvokeGPT4Async(string prompt)
+    {
+        var builder = Kernel.CreateBuilder();
+
+        builder.AddOpenAIChatCompletion(
+            modelId: "gpt-4",   // Use GPT-4 model
+            apiKey: "API-KEY"); // Replace with your actual OpenAI API key
+
+        var kernel = builder.Build();
+
+        // Define prompt execution settings
+        var settings = new OpenAIPromptExecutionSettings
+            {
+                MaxTokens = 100,
+                Temperature = 1
+            };
+        var kernelArguments = new KernelArguments(settings);
+
+        // Use the user-provided prompt instead of hardcoding one
+        var responseStream = kernel.InvokePromptStreamingAsync(prompt, kernelArguments);
+
+        // Accumulate the result from the stream
+        var responseBuilder = new StringBuilder();
+        await foreach (var message in responseStream)
+        {
+            responseBuilder.Append(message.ToString());
+        }
+
+        return responseBuilder.ToString();
+    }
+}

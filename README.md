@@ -12,7 +12,7 @@ https://ollama.com/download
 
 To verify the Ollama installation run these commands:
 
-For running the phi3 model:
+For downloading the phi3 model:
 
 ```
 ollama run phi3
@@ -23,13 +23,16 @@ For listing the models:
 ```
 ollama list
 ```
+
 ![image](https://github.com/user-attachments/assets/caf096b3-2d59-4534-b943-6685e3f1f3ef)
 
-Check Ollama is running
+Verify Ollama is running
 
 ```
 curl http://localhost:11434
 ```
+
+![image](https://github.com/user-attachments/assets/f54ed356-d5b5-4e97-8652-e5abee40df6b)
 
 Send a request:
 
@@ -44,5 +47,33 @@ curl -X POST http://localhost:11434/v1/completions ^
 ## 3. Create a Blazor Web Application
 
 
-## 4. 
+## 4. Create a Component for invoking ChatGPT
+
+
+## 5. Create a Component for invoking Ollama Phi3 
+
+
+## 6. Create a Service for invoking ChatGPT
+
+
+## 7. Create a Service for invoking Ollama Phi3
+
+
+
+## 8. Register the Services in the middleware 
+
+
+## 9. Create a Component for consuming the ChatGPT service
+
+
+## 10. Create a Component for consuming the Ollama Phi3 service
+
+
+## 11. Add the new components in the NavMenu.razor
+
+
+## 12. Run the application and verify the results
+
+
+
 

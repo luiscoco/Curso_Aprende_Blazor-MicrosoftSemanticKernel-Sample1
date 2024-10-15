@@ -391,12 +391,109 @@ app.Run();
 
 ## 9. Create a Component for consuming the ChatGPT service
 
+```razor
+﻿@page "/ServiceAIChatGPT"
+@using BlazorAISample1.Services
+@inject ChatGPTService GPTService
+@inject IJSRuntime JS
+
+<h3>Ask GPT-4 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskGPT4">Ask GPT-4</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskGPT4()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            gptResponse = "Please enter a valid prompt.";
+            return;
+        }
+
+        gptResponse = await GPTService.AskGPT4Async(userPrompt);
+    }
+}
+```
+
 
 ## 10. Create a Component for consuming the Ollama Phi3 service
 
+```razor
+﻿@page "/ServiceAIChatPhi3"
+@using BlazorAISample1.Services
+@inject OllamaService OllamaService  // Inject the OllamaService for making the API call
+
+<h3>Ask Phi-3 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskPhi3">Ask Phi-3</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskPhi3()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            return;
+        }
+
+        gptResponse = await OllamaService.GetResponseAsync(userPrompt);
+    }
+}
+```
 
 ## 11. Add the new components in the NavMenu.razor
 
+```razor
+ <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AIChatGPT">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AIChatGPT
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ServiceAIChatGPT">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ServiceAIChatGPT
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AIChatPhi3">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AIOllama
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ServiceAIChatPhi3">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> ServiceAIChatPhi3
+            </NavLink>
+        </div>
+```
 
 ## 12. Run the application and verify the results
 

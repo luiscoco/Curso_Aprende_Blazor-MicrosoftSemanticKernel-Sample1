@@ -6,7 +6,27 @@ https://learn.microsoft.com/en-us/semantic-kernel/
 
 ## 1. Generate an OpenAI Key for ChatGPT
 
+First of all for using the ChatGPT OpenAI APIs services you have to Sign Up in this web page:
+
+https://auth.openai.com/
+
+After Signing Up you can access the OpenAPI web page
+
+![image](https://github.com/user-attachments/assets/20ecd685-eb1e-48c1-80e1-9f599901e2bd)
+
+Now you have to create a API Key. For this purpose we navigate to this web page:
+
 https://platform.openai.com/api-keys
+
+Then we press in the **Create new secret key** button
+
+![image](https://github.com/user-attachments/assets/e4bab1b3-0bca-4bdb-8166-5603e85d4ee7)
+
+We copy the API Key for pasting in our C# application source code
+
+![image](https://github.com/user-attachments/assets/f76ead90-2112-4879-9930-1fc6ca1c08d2)
+
+![image](https://github.com/user-attachments/assets/24877c5d-6e53-4e4c-8528-c9ada1f0c817)
 
 ## 2. Download and Install Ollama in your local laptop
 

@@ -6,9 +6,11 @@ https://learn.microsoft.com/en-us/semantic-kernel/
 
 ## 1. Generate an OpenAI Key for ChatGPT
 
-First of all for using the ChatGPT OpenAI APIs services you have to Sign Up in this web page:
+First of all for using the ChatGPT OpenAI APIs services you have to **Sign Up** in this web page:
 
 https://auth.openai.com/
+
+![image](https://github.com/user-attachments/assets/fec1e14c-65cb-4c9f-a2a0-631d2677c5df)
 
 After Signing Up you can access the OpenAPI web page
 

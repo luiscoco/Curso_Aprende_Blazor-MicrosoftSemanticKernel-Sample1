@@ -338,6 +338,10 @@ We create the **OllamaService.cs** file for defining the **Ollama Phi-3** servic
 
 ![image](https://github.com/user-attachments/assets/d6641b78-4713-4ec2-a3ed-4335a323010f)
 
+The **OllamaService** class is designed to send prompts to an AI service and retrieve generated responses
+
+It uses an asynchronous **HTTP POST** request, serializes the request body to JSON, handles the response by parsing the returned JSON, and includes error handling for both HTTP and general exceptions
+
 ```csharp
 ﻿using System.Text.Json;
 using System.Text;

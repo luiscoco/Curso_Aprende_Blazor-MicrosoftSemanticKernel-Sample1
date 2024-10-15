@@ -72,14 +72,23 @@ curl -X POST http://localhost:11434/v1/completions ^
 
 We run Visual Studio 2022 Community Edition and create a new project
 
+![image](https://github.com/user-attachments/assets/e94a061c-64b6-40dd-a24f-9dcea73c64a1)
 
 We select the Blazor Web App
 
+![image](https://github.com/user-attachments/assets/e706d00f-d21c-4322-ad8c-862076792782)
+
 We input the project name and location
+
+![image](https://github.com/user-attachments/assets/facd8b35-3591-4b8f-8123-e696cffd15cf)
 
 We select the .NET9 Framework and press the Create button
 
+![image](https://github.com/user-attachments/assets/88b7ba61-b893-485a-b198-42781d8be1d1)
+
 We verify the project folder and files structure
+
+
 
 ## 4. Load the Nuget packages
 

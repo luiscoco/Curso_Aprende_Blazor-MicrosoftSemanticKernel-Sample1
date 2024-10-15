@@ -407,6 +407,14 @@ namespace BlazorAISample1.Services
 
 ## 9. Register the Services in the middleware 
 
+We add this code for registering the ChatGPT-4 and Ollama Phi-3 services in the Blazor applicatin
+
+```csharp
+builder.Services.AddSingleton<ChatGPTService>();
+builder.Services.AddScoped<OllamaService>();
+```
+
+This is the whole middleware source code:
 
 ```csharp
 using BlazorAISample1.Components;
@@ -448,6 +456,10 @@ app.Run();
 
 ## 10. Create a Component for consuming the ChatGPT service
 
+We create a new razor component **AIChatGPTinjectedComponent.razor** forn invoking the **ChatGPT-4** Service
+
+![image](https://github.com/user-attachments/assets/ed8126c4-b954-46cd-ac47-37f45941016d)
+
 ```razor
 ﻿@page "/ServiceAIChatGPT"
 @using BlazorAISample1.Services
@@ -487,8 +499,11 @@ app.Run();
 }
 ```
 
-
 ## 11. Create a Component for consuming the Ollama Phi3 service
+
+We create a new razor component **AIOllamaComponentInjectedService.razor** forn invoking the **ChatGPT-4** Service
+
+![image](https://github.com/user-attachments/assets/3154fddd-7d50-46c4-8f96-500459cc2791)
 
 ```razor
 ﻿@page "/ServiceAIChatPhi3"

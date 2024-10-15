@@ -96,6 +96,10 @@ We verify the project folder and files structure, and we create the **Services**
 
 ## 5. Create a Component for invoking ChatGPT
 
+We create a new razor component **AIChatGTPComponent.razor**
+
+![image](https://github.com/user-attachments/assets/d0b1f8a9-270d-408d-b3e4-f4b70a67bfe1)
+
 This Blazor component allows users to input a prompt, sends that prompt to **GPT-4** via **OpenAI's API**, and then displays the response on the web page
 
 The **GPT-4** interaction is handled asynchronously, with settings like token limit and temperature controlled programmatically
@@ -168,6 +172,10 @@ The **GPT-4** interaction is handled asynchronously, with settings like token li
 ```
 
 ## 6. Create a Component for invoking Ollama Phi3 
+
+We create a new razor component **AIOllamaComponent_.razor**
+
+![image](https://github.com/user-attachments/assets/b5007803-a098-4034-ad6f-a5c7131470c3)
 
 This Blazor component allows a user to send a prompt to the **Ollama Phi-3** model via an API and displays the response
 

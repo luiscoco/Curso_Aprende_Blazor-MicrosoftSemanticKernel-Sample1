@@ -270,6 +270,10 @@ The code handles errors gracefully, returning appropriate messages when the requ
 
 ## 7. Create a Service for invoking ChatGPT
 
+We create the **ChatGPTService.cs** file for defining the **ChatGPT-4** service
+
+![image](https://github.com/user-attachments/assets/d2fbfd12-50ac-4efc-a867-118ae0f70373)
+
 ```csharp
 ﻿namespace BlazorAISample1.Services
 {
@@ -325,6 +329,10 @@ The code handles errors gracefully, returning appropriate messages when the requ
 ```
 
 ## 8. Create a Service for invoking Ollama Phi3
+
+We create the **OllamaService.cs** file for defining the **Ollama Phi-3** service
+
+![image](https://github.com/user-attachments/assets/d6641b78-4713-4ec2-a3ed-4335a323010f)
 
 ```csharp
 ﻿using System.Text.Json;

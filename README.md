@@ -405,16 +405,20 @@ namespace BlazorAISample1.Services
 }
 ```
 
-## 9. Register the Services in the middleware 
+## 9. Register the Services in the middleware (Program.cs)
 
-We add this code for registering the ChatGPT-4 and Ollama Phi-3 services in the Blazor applicatin
+We add this code in the **Program.cs** for registering the **ChatGPT-4** and **Ollama Phi-3** services in the Blazor applicatin
 
 ```csharp
 builder.Services.AddSingleton<ChatGPTService>();
 builder.Services.AddScoped<OllamaService>();
 ```
 
-This is the whole middleware source code:
+See the **Program.cs** location in the project structure
+
+![image](https://github.com/user-attachments/assets/bfce138a-13bf-46bb-ae41-c9e507c0b421)
+
+This is the whole middleware (**Program.cs**) source code:
 
 ```csharp
 using BlazorAISample1.Components;

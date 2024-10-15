@@ -73,16 +73,280 @@ curl -X POST http://localhost:11434/v1/completions ^
 
 ## 4. Create a Component for invoking ChatGPT
 
+```razor
+﻿@page "/AIChatGPT"
+@inject IJSRuntime JS
+
+<h3>Ask GPT-4 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskGPT4">Ask GPT-4</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskGPT4()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            return;
+        }
+
+        gptResponse = await InvokeGPT4Async(userPrompt);
+    }
+
+    private async Task<string> InvokeGPT4Async(string prompt)
+    {
+        var builder = Kernel.CreateBuilder();
+
+        builder.AddOpenAIChatCompletion(
+            modelId: "gpt-4",   // Use GPT-4 model
+            apiKey: "API-KEY"); // Replace with your actual OpenAI API key
+
+        var kernel = builder.Build();
+
+        // Define prompt execution settings
+        var settings = new OpenAIPromptExecutionSettings
+            {
+                MaxTokens = 100,
+                Temperature = 1
+            };
+        var kernelArguments = new KernelArguments(settings);
+
+        // Use the user-provided prompt instead of hardcoding one
+        var responseStream = kernel.InvokePromptStreamingAsync(prompt, kernelArguments);
+
+        // Accumulate the result from the stream
+        var responseBuilder = new StringBuilder();
+        await foreach (var message in responseStream)
+        {
+            responseBuilder.Append(message.ToString());
+        }
+
+        return responseBuilder.ToString();
+    }
+}
+```
 
 ## 5. Create a Component for invoking Ollama Phi3 
 
+```razor
+﻿@page "/AIChatPhi3"
+@inject HttpClient Http  // Inject HttpClient for making the API call
+
+<h3>Ask Phi-3 a Question</h3>
+
+<div>
+    <label>Enter a prompt:</label>
+    <input type="text" @bind="userPrompt" />
+</div>
+<button @onclick="AskPhi3">Ask Phi-3</button>
+
+@if (!string.IsNullOrEmpty(gptResponse))
+{
+    <div>
+        <h4>Response:</h4>
+        <p>@gptResponse</p>
+    </div>
+}
+
+@code {
+    private string userPrompt = string.Empty;
+    private string gptResponse = string.Empty;
+
+    private async Task AskPhi3()
+    {
+        if (string.IsNullOrWhiteSpace(userPrompt))
+        {
+            return;
+        }
+
+        gptResponse = await InvokePhi3Async(userPrompt);
+    }
+
+    private async Task<string> InvokePhi3Async(string prompt)
+    {
+        try
+        {
+            // Define the endpoint and model settings
+            var endpoint = "http://localhost:11434/v1/completions";
+            var requestBody = new
+            {
+                model = "phi3:latest",
+                prompt = prompt
+            };
+
+            // Serialize the request body
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json");
+
+            // Send the POST request
+            var response = await Http.PostAsync(endpoint, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Read and parse the response
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var completionResponse = System.Text.Json.JsonDocument.Parse(jsonResponse);
+
+                // Extract the text from the "choices" array in the response
+                var completionText = completionResponse.RootElement
+                    .GetProperty("choices")[0]
+                    .GetProperty("text")
+                    .GetString();
+
+                return completionText ?? "No response";
+            }
+            else
+            {
+                return $"Error: Service request failed. Status: {response.StatusCode}";
+            }
+        }
+        catch (HttpRequestException httpEx)
+        {
+            Console.WriteLine($"HTTP Request Error: {httpEx.Message}");
+            return $"Error: Unable to connect to the Ollama service at http://localhost:11434. Please ensure the service is running.";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"General Error: {ex.Message}");
+            return $"Error: {ex.Message}";
+        }
+    }
+}
+```
 
 ## 6. Create a Service for invoking ChatGPT
 
+```csharp
+﻿namespace BlazorAISample1.Services
+{
+    using System.Text;
+    using Microsoft.SemanticKernel;
+    using Microsoft.SemanticKernel.ChatCompletion;
+    using Microsoft.SemanticKernel.Connectors.OpenAI;
+    using System.Threading.Tasks;
+  
+    public class ChatGPTService
+    {
+        public readonly Kernel _kernel;
+
+        public ChatGPTService()
+        {
+            var builder = Kernel.CreateBuilder();
+
+            // Configure the OpenAI GPT-4 model with your API key
+            builder.AddOpenAIChatCompletion(
+                modelId: "gpt-4",
+                apiKey: "API-KEY"); // Replace with your actual API key
+
+            _kernel = builder.Build();
+        }
+
+        public async Task<string> AskGPT4Async(string prompt)
+        {
+            if (string.IsNullOrWhiteSpace(prompt))
+            {
+                return "Prompt cannot be empty!";
+            }
+
+            var settings = new OpenAIPromptExecutionSettings
+            {
+                MaxTokens = 100,
+                Temperature = 1
+            };
+
+            var kernelArguments = new KernelArguments(settings);
+
+            var responseStream = _kernel.InvokePromptStreamingAsync(prompt, kernelArguments);
+            var responseBuilder = new StringBuilder();
+
+            await foreach (var message in responseStream)
+            {
+                responseBuilder.Append(message.ToString());
+            }
+
+            return responseBuilder.ToString();
+        }
+    }
+}
+```
 
 ## 7. Create a Service for invoking Ollama Phi3
 
+```csharp
+﻿using System.Text.Json;
+using System.Text;
 
+namespace BlazorAISample1.Services
+{
+    public class OllamaService
+    {
+        private readonly HttpClient _httpClient;
+
+        public OllamaService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<string> GetResponseAsync(string prompt)
+        {
+            var endpoint = "http://localhost:11434/v1/completions";
+
+            var requestBody = new
+            {
+                model = "phi3:latest",
+                prompt = prompt
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await _httpClient.PostAsync(endpoint, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var completionResponse = JsonDocument.Parse(jsonResponse);
+
+                    var completionText = completionResponse.RootElement
+                        .GetProperty("choices")[0]
+                        .GetProperty("text")
+                        .GetString();
+
+                    return completionText ?? "No response";
+                }
+                else
+                {
+                    return $"Error: Service request failed. Status: {response.StatusCode}";
+                }
+            }
+            catch (HttpRequestException httpEx)
+            {
+                Console.WriteLine($"HTTP Request Error: {httpEx.Message}");
+                return $"Error: Unable to connect to the Ollama service at {endpoint}. Please ensure the service is running.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General Error: {ex.Message}");
+                return $"Error: {ex.Message}";
+            }
+        }
+    }
+}
+```
 
 ## 8. Register the Services in the middleware 
 

@@ -274,6 +274,10 @@ We create the **ChatGPTService.cs** file for defining the **ChatGPT-4** service
 
 ![image](https://github.com/user-attachments/assets/d2fbfd12-50ac-4efc-a867-118ae0f70373)
 
+This service allows you to send prompts to the **GPT-4** model from a Blazor app
+
+It uses **Microsoft's Semantic Kernel** framework to manage communication with **OpenAI's API** and streams responses back to the caller asynchronously
+
 ```csharp
 ﻿namespace BlazorAISample1.Services
 {

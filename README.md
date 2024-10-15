@@ -96,6 +96,10 @@ We verify the project folder and files structure, and we create the **Services**
 
 ## 5. Create a Component for invoking ChatGPT
 
+This Blazor component allows users to input a prompt, sends that prompt to **GPT-4** via **OpenAI's API**, and then displays the response on the web page
+
+The **GPT-4** interaction is handled asynchronously, with settings like token limit and temperature controlled programmatically
+
 ```razor
 ﻿@page "/AIChatGPT"
 @inject IJSRuntime JS
@@ -164,6 +168,12 @@ We verify the project folder and files structure, and we create the **Services**
 ```
 
 ## 6. Create a Component for invoking Ollama Phi3 
+
+This Blazor component allows a user to send a prompt to the **Ollama Phi-3** model via an API and displays the response
+
+It makes an asynchronous **HTTP POST** request to a local API endpoint (**http://localhost:11434/v1/completions**), sends the user’s prompt in the request body, and retrieves and displays the result
+
+The code handles errors gracefully, returning appropriate messages when the request fails or encounters issues
 
 ```razor
 ﻿@page "/AIChatPhi3"

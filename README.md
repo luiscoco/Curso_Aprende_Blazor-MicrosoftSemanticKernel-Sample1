@@ -513,6 +513,10 @@ We create a new razor component **AIOllamaComponentInjectedService.razor** forn 
 
 ![image](https://github.com/user-attachments/assets/3154fddd-7d50-46c4-8f96-500459cc2791)
 
+This Blazor component allows a user to input a question, send it to an AI service (using **OllamaService**), and display the AI's response on the webpage
+
+The interaction is handled using data binding for the input and button click event, and the response is conditionally rendered based on whether it has been received
+
 ```razor
 ﻿@page "/ServiceAIChatPhi3"
 @using BlazorAISample1.Services
@@ -551,6 +555,14 @@ We create a new razor component **AIOllamaComponentInjectedService.razor** forn 
 ```
 
 ## 12. Add the new components in the NavMenu.razor
+
+We also have to include four new menu items to navigate to the new razor components
+
+For adding these new menu items we modify the **NavMenu.razor**
+
+![image](https://github.com/user-attachments/assets/68232301-f7e5-4342-aaee-3e25cde7eca3)
+
+We include this new code in the **NavMenu.razor**
 
 ```razor
  <div class="nav-item px-3">

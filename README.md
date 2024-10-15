@@ -70,8 +70,22 @@ curl -X POST http://localhost:11434/v1/completions ^
 
 ## 3. Create a Blazor Web Application
 
+We run Visual Studio 2022 Community Edition and create a new project
 
-## 4. Create a Component for invoking ChatGPT
+
+We select the Blazor Web App
+
+We input the project name and location
+
+We select the .NET9 Framework and press the Create button
+
+We verify the project folder and files structure
+
+## 4. Load the Nuget packages
+
+
+
+## 5. Create a Component for invoking ChatGPT
 
 ```razor
 ﻿@page "/AIChatGPT"
@@ -140,7 +154,7 @@ curl -X POST http://localhost:11434/v1/completions ^
 }
 ```
 
-## 5. Create a Component for invoking Ollama Phi3 
+## 6. Create a Component for invoking Ollama Phi3 
 
 ```razor
 ﻿@page "/AIChatPhi3"
@@ -227,7 +241,7 @@ curl -X POST http://localhost:11434/v1/completions ^
 }
 ```
 
-## 6. Create a Service for invoking ChatGPT
+## 7. Create a Service for invoking ChatGPT
 
 ```csharp
 ﻿namespace BlazorAISample1.Services
@@ -283,7 +297,7 @@ curl -X POST http://localhost:11434/v1/completions ^
 }
 ```
 
-## 7. Create a Service for invoking Ollama Phi3
+## 8. Create a Service for invoking Ollama Phi3
 
 ```csharp
 ﻿using System.Text.Json;
@@ -348,7 +362,7 @@ namespace BlazorAISample1.Services
 }
 ```
 
-## 8. Register the Services in the middleware 
+## 9. Register the Services in the middleware 
 
 
 ```csharp
@@ -389,7 +403,7 @@ app.MapRazorComponents<App>()
 app.Run();
 ```
 
-## 9. Create a Component for consuming the ChatGPT service
+## 10. Create a Component for consuming the ChatGPT service
 
 ```razor
 ﻿@page "/ServiceAIChatGPT"
@@ -431,7 +445,7 @@ app.Run();
 ```
 
 
-## 10. Create a Component for consuming the Ollama Phi3 service
+## 11. Create a Component for consuming the Ollama Phi3 service
 
 ```razor
 ﻿@page "/ServiceAIChatPhi3"
@@ -470,7 +484,7 @@ app.Run();
 }
 ```
 
-## 11. Add the new components in the NavMenu.razor
+## 12. Add the new components in the NavMenu.razor
 
 ```razor
  <div class="nav-item px-3">
@@ -495,7 +509,7 @@ app.Run();
         </div>
 ```
 
-## 12. Run the application and verify the results
+## 13. Run the application and verify the results
 
 ![image](https://github.com/user-attachments/assets/5c686d06-f31e-401e-98fa-9f10bfe378ce)
 

@@ -466,6 +466,8 @@ We create a new razor component **AIChatGPTinjectedComponent.razor** forn invoki
 
 ![image](https://github.com/user-attachments/assets/ed8126c4-b954-46cd-ac47-37f45941016d)
 
+This Blazor component allows a user to enter a question, send it to **GPT-4** via a **service**, and display the model's response on the web page
+
 ```razor
 ﻿@page "/ServiceAIChatGPT"
 @using BlazorAISample1.Services

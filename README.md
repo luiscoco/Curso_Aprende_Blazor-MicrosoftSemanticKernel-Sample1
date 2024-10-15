@@ -86,13 +86,13 @@ We select the .NET9 Framework and press the Create button
 
 ![image](https://github.com/user-attachments/assets/88b7ba61-b893-485a-b198-42781d8be1d1)
 
-We verify the project folder and files structure
+We verify the project folder and files structure, and we create the **Services** folder
 
-
+![image](https://github.com/user-attachments/assets/797771e6-27f1-4c17-bc83-0286a57cf5d9)
 
 ## 4. Load the Nuget packages
 
-
+![image](https://github.com/user-attachments/assets/ba37c193-3b78-48d7-ad74-9c3e14749f3e)
 
 ## 5. Create a Component for invoking ChatGPT
 
